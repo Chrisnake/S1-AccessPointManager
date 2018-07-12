@@ -1,6 +1,8 @@
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,32 +16,29 @@ import javax.swing.JButton;
 public class Register extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField userPassword;
-	private JTextField userID;
-	private JLabel lblUniversityId;
-	private JLabel lblNewLabel;
-	private JLabel lblPosition;
-	private JLabel lblAccomodation;
-	private JLabel lblDepartment;
- 
-	/*
+	public static Register frame = new Register();
+	
+	/**
+	 * @param frame: The frame for the register class that makes it accessible to other objects
 	 * String arrays containing information for combobox fields
 	 */
 	
-	String[] arrayuserType = new String[] {"Student", "Lecturer", "Cleaner"};
+	String[] arrayuserType = new String[] 
+	{"Student", "Lecturer", "Cleaner"};
 	
-	String[] arrayDepartment = new String[] {"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
-											 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
-											 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre"};
+	String[] arrayDepartment = new String[] 
+	{"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
+	 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
+	 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre"};
 	
-	String[] arrayAccomodation = new String[] {"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
-											   "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall"};
+	String[] arrayAccomodation = new String[] 
+	{"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
+	 "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall"};
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Register frame = new Register();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,12 +69,12 @@ public class Register extends JFrame {
 		 *  JTextField componenets
 		 */
 		
-		userPassword = new JTextField();
+		JTextField userPassword = new JTextField();
 		userPassword.setBounds(302, 101, 130, 26);
 		contentPane.add(userPassword);
 		userPassword.setColumns(10);
 		
-		userID = new JTextField();
+		JTextField userID = new JTextField();
 		userID.setBounds(302, 76, 130, 26);
 		contentPane.add(userID);
 		userID.setColumns(10);
@@ -103,27 +102,27 @@ public class Register extends JFrame {
 		 * JLabel componenets
 		 */
 		
-		lblUniversityId = new JLabel("University ID");
+		JLabel lblUniversityId = new JLabel("University ID");
 		lblUniversityId.setBounds(220, 81, 70, 16);
 		lblUniversityId.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblUniversityId);
 		
-		lblNewLabel = new JLabel("Password");
+		JLabel lblNewLabel = new JLabel("Password");
 		lblNewLabel.setBounds(220, 106, 75, 16);
 		lblNewLabel.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblNewLabel);
 		
-		lblPosition = new JLabel("Position");
+		JLabel lblPosition = new JLabel("Position");
 		lblPosition.setBounds(220, 131, 61, 16);
 		lblPosition.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblPosition);
 		
-		lblAccomodation = new JLabel("Accomodation");
+		JLabel lblAccomodation = new JLabel("Accomodation");
 		lblAccomodation.setBounds(220, 158, 89, 16);
 		lblAccomodation.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblAccomodation);
 		
-		lblDepartment = new JLabel("Department");
+		JLabel lblDepartment = new JLabel("Department");
 		lblDepartment.setBounds(220, 184, 89, 16);
 		lblDepartment.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblDepartment);
@@ -136,10 +135,29 @@ public class Register extends JFrame {
 		backButton.setBounds(371, 231, 61, 29);
 		backButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(backButton);
+		backButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				//TODO: After the user clicks next check the database for the pre-existing IDs in the system
+				//TODO: After checking there are no pre-existing IDs, store the information in the mySQL database
+				Home.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 		
 		JButton nextButton = new JButton("Back");
 		nextButton.setBounds(229, 231, 61, 29);
 		nextButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(nextButton);
+		nextButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				StartUp back = new StartUp();
+				back.frame.setVisible(true);
+				frame.dispose();
+			}
+		});
 	}
 }

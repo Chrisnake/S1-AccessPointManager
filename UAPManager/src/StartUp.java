@@ -10,10 +10,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class StartUp {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField usernameField;
 	private JTextField passwordField;
 
@@ -41,7 +42,7 @@ public class StartUp {
 		initialize();
 	}
 
-	private void initialize() 
+	public void initialize() 
 	{	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -102,7 +103,7 @@ public class StartUp {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				//TODO: Check if there are no errors in the username and password they input from the dateabase
 			}
 		});
 		

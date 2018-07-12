@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -23,17 +24,17 @@ public class Register extends JFrame {
 	 * String arrays containing information for combobox fields
 	 */
 	
-	String[] arrayuserType = new String[] 
-	{"Student", "Lecturer", "Cleaner"};
+	private String[] arrayuserType = new String[] 
+			{"Student", "Lecturer", "Cleaner"};
 	
-	String[] arrayDepartment = new String[] 
-	{"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
-	 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
-	 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre"};
+	private String[] arrayDepartment = new String[] 
+			{"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
+			 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
+	   		 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre", "None"};
 	
-	String[] arrayAccomodation = new String[] 
-	{"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
-	 "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall"};
+	private String[] arrayAccomodation = new String[] 
+			{"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
+			 "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall", "None"};
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -69,12 +70,14 @@ public class Register extends JFrame {
 		 *  JTextField componenets
 		 */
 		
-		JTextField userPassword = new JTextField();
+		JPasswordField userPassword = new JPasswordField();
 		userPassword.setBounds(302, 101, 130, 26);
+		userPassword.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 8));
 		contentPane.add(userPassword);
 		userPassword.setColumns(10);
 		
 		JTextField userID = new JTextField();
+		userID.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		userID.setBounds(302, 76, 130, 26);
 		contentPane.add(userID);
 		userID.setColumns(10);
@@ -84,16 +87,19 @@ public class Register extends JFrame {
 		 */
 		
 		JComboBox<String> userDepartment = new JComboBox<>(arrayDepartment);
+		userDepartment.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		String selectedDepartment = (String) userDepartment.getSelectedItem();
 		userDepartment.setBounds(302, 180, 130, 27);
 		contentPane.add(userDepartment);
 		
 		JComboBox<String> userAccomodation = new JComboBox<>(arrayAccomodation);
+		userAccomodation.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		String selectedAccomodation = (String) userAccomodation.getSelectedItem();
 		userAccomodation.setBounds(302, 154, 130, 27);
 		contentPane.add(userAccomodation);
 		
 		JComboBox <String> userType = new JComboBox<>(arrayuserType);
+		userType.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		String selectedType= (String) userType.getSelectedItem();
 		userType.setBounds(302, 127, 130, 27);
 		contentPane.add(userType);
@@ -131,26 +137,27 @@ public class Register extends JFrame {
 		 * JButton components
 		 */
 		
-		JButton backButton = new JButton("Next");
-		backButton.setBounds(371, 231, 61, 29);
-		backButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
-		contentPane.add(backButton);
-		backButton.addActionListener(new ActionListener() 
+		JButton nextButton = new JButton("Next");
+		nextButton.setBounds(371, 231, 61, 29);
+		nextButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
+		contentPane.add(nextButton);
+		nextButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
 				//TODO: After the user clicks next check the database for the pre-existing IDs in the system
 				//TODO: After checking there are no pre-existing IDs, store the information in the mySQL database
+				System.out.println(selectedAccomodation);
 				Home.frame.setVisible(true);
 				frame.dispose();
 			}
 		});
 		
-		JButton nextButton = new JButton("Back");
-		nextButton.setBounds(229, 231, 61, 29);
-		nextButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
-		contentPane.add(nextButton);
-		nextButton.addActionListener(new ActionListener() 
+		JButton backButton = new JButton("Back");
+		backButton.setBounds(229, 231, 61, 29);
+		backButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
+		contentPane.add(backButton);
+		backButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{

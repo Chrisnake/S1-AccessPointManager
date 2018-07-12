@@ -1,23 +1,19 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 
 public class StartUp {
 
 	public JFrame frame;
-	private JTextField usernameField;
-	private JTextField passwordField;
-
+	
 	/**
 	 * @param frame: the frame for the class
 	 * @param usernameField: the username user input
@@ -28,9 +24,10 @@ public class StartUp {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+						
 					StartUp window = new StartUp();
 					window.frame.setVisible(true);
-				} catch (Exception e) {
+					} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -40,7 +37,8 @@ public class StartUp {
 	public StartUp() 
 	{
 		initialize();
-	}
+    }
+	
 
 	public void initialize() 
 	{	
@@ -62,7 +60,7 @@ public class StartUp {
 		 * JLabel components
 		 */
 		
-		JLabel UserIDText = new JLabel("UniversityID");
+		JLabel UserIDText = new JLabel("University ID");
 		UserIDText.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		UserIDText.setBounds(220, 126, 75, 16);
 		frame.getContentPane().add(UserIDText);
@@ -81,15 +79,17 @@ public class StartUp {
 		 * JTextField components
 		 */
 		
-		usernameField = new JTextField();
+		JTextField usernameField = new JTextField();
 		usernameField.setBounds(300, 120, 130, 26);
+		usernameField.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		frame.getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
-		passwordField = new JTextField();
-		passwordField.setBounds(300, 148, 130, 26);
-		frame.getContentPane().add(passwordField);
-		passwordField.setColumns(10);
+		JPasswordField password = new JPasswordField();
+		password.setBounds(300, 148, 130, 26);
+		password.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 8));
+		frame.getContentPane().add(password);
+		password.setColumns(10);
 		
 		/**
 		 * JButton components
@@ -111,6 +111,7 @@ public class StartUp {
 		btnsignUp.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 10));
 		btnsignUp.setBounds(364, 186, 66, 29);
 		frame.getContentPane().add(btnsignUp);
+		
 		btnsignUp.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 

@@ -11,26 +11,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 
 public class RemoveProfile extends JFrame {
 
-	private JPanel contentPane;
 	public static RemoveProfile frame = new RemoveProfile();
-	
+	protected driver sqlDriver = new driver();
+
 	/**
 	 * @param frame: The frame for the RemoveProfile class that makes it accessible to other objects
-	 * @param 
+	 * @param sqlDriver: driver class containing SQL back end logic
 	 */
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RemoveProfile frame = new RemoveProfile();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try { RemoveProfile frame = new RemoveProfile(); frame.setVisible(true);} 
+				catch (Exception e) {e.printStackTrace();}
 			}
 		});
 	}
@@ -39,7 +39,7 @@ public class RemoveProfile extends JFrame {
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -54,7 +54,7 @@ public class RemoveProfile extends JFrame {
 		contentPane.add(panel);
 		
 		/**
-		 * JLabel components
+		 * JLabel and JTextField components
 		 */
 		
 		JLabel lblRemoveProfile = new JLabel("Remove Profile");
@@ -63,9 +63,41 @@ public class RemoveProfile extends JFrame {
 		lblRemoveProfile.setForeground(new Color(255, 255, 255));
 		lblRemoveProfile.setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 18));
 		
+		JLabel lblAreYouSure = new JLabel("To confirm please type in your ID");
+		lblAreYouSure.setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 13));
+		lblAreYouSure.setBounds(129, 93, 285, 16);
+		contentPane.add(lblAreYouSure);
+		
+		JLabel lblNote = new JLabel("Note: Only remove the profile if you have officially left University.");
+		lblNote.setForeground(Color.RED);
+		lblNote.setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 9));
+		lblNote.setBounds(99, 121, 263, 16);
+		contentPane.add(lblNote);
+		
+		JTextField removeField = new JTextField();
+		removeField.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
+		removeField.setBounds(162, 149, 130, 26);
+		contentPane.add(removeField);
+		removeField.setColumns(10);
+		
 		/**
 		 * JButton components
 		 */
+		
+		JButton removeButton = new JButton("Remove");
+		removeButton.setBounds(183, 187, 86, 29);
+		removeButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
+		contentPane.add(removeButton);
+		removeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				String removeProfile = removeField.getText();
+				sqlDriver.removeUser(removeProfile);
+				System.out.println("The account has been successfully removed from the database");
+				frame.dispose();
+			}
+		});
 		
 		JButton backButton = new JButton("Back");
 		backButton.setBounds(20, 232, 61, 29);
@@ -79,16 +111,5 @@ public class RemoveProfile extends JFrame {
 				frame.dispose();
 			}
 		});
-		
-		JLabel lblAreYouSure = new JLabel("Are you sure you want to remove this profile?");
-		lblRemoveProfile.setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 18));
-		lblAreYouSure.setBounds(87, 116, 285, 16);
-		contentPane.add(lblAreYouSure);
-		
-		JButton removeButton = new JButton("Yes, remove");
-		removeButton.setBounds(167, 144, 117, 29);
-		removeButton.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
-		contentPane.add(removeButton);
-		
 	}
 }

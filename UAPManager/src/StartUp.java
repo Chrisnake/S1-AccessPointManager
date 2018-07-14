@@ -17,24 +17,26 @@ import javax.swing.JPasswordField;
 public class StartUp {
 
 	public JFrame frame;
+	protected driver sqlDriver = new driver();
 	
 	/**
+	 * @author christianvillegas - student project 2018, rights reserved.
 	 * @param frame: the frame for the class
-	 * @param usernameField: the username user input
-	 * @param passwordFied: the password user input
+	 * @param sqlDriver: driver class containing SQL back end logic
+	 *
 	 */
 	
-	driver sqlDriver = new driver();
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-						
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{ 
 					StartUp window = new StartUp();
 					window.frame.setVisible(true);
-					} catch (Exception e) {
-					e.printStackTrace();
-				}
+				} catch (Exception e) { e.printStackTrace(); }
 			}
 		});
 	}
@@ -75,6 +77,13 @@ public class StartUp {
 		lblPassword.setBounds(234, 154, 61, 16);
 		frame.getContentPane().add(lblPassword);
 		
+		JLabel errorLogIn = new JLabel("*Your log In details are incorrect, please try again.");
+		errorLogIn.setVisible(false);
+		errorLogIn.setForeground(Color.RED);
+		errorLogIn.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 9));
+		errorLogIn.setBounds(240, 231, 200, 16);
+		frame.getContentPane().add(errorLogIn);
+		
 		JLabel lblUniversityAccessPoint = new JLabel("University Access Point Manager");
 		lblUniversityAccessPoint.setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 14));
 		lblUniversityAccessPoint.setBounds(224, 41, 206, 16);
@@ -108,7 +117,20 @@ public class StartUp {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				//TODO: Check if there are no errors in the username and password they input from the dateabase
+				String username = usernameField.getText();
+				char[] charPassword = password.getPassword();
+				String password = String.valueOf(charPassword);
+				System.out.println(username + " " + password);
+				if(sqlDriver.checkLogin(username, password)) //If true, then there is a login and password match
+				{
+					Home homepage = new Home();
+					homepage.setVisible(true);
+					frame.dispose();
+				}
+				else //Thus if there is not a match, then display error JLabel
+				{
+					errorLogIn.setVisible(true);
+				}
 			}
 		});
 		

@@ -18,17 +18,17 @@ public class Home extends JFrame {
 	
 	/**
 	 * @param frame: The frame for the home class that makes it accessible to other objects
-	 * @param 
+	 * @category HomePage: This is where the main options for the user will be.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try {frame.setVisible(true);} 
+				catch (Exception e) {e.printStackTrace();}
 			}
 		});
 	}

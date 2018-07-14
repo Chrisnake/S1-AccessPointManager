@@ -19,27 +19,29 @@ public class AccessBuilding extends JFrame {
 
 	private JPanel contentPane;
 	public static AccessBuilding frame = new AccessBuilding();
+	protected driver sqlDriver = new driver();
+	
 	/**
 	 * @param frame: The frame for the AccessBuilding class that makes it accessible to other objects
-	 * @param 
+	 * @param sqlDriver: driver class containing SQL back end logic
 	 */
 	
 	String[] arrayBuildings = new String[] 
+			
 			{"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
 			 "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall", "Library",
 			 "Elliot Jaques", "Mary Seacole", "Eastern Gateway", "St Johns", "Halsbury", "The lecture centre",
 			 "The Bannerman Center", "Heinz Wolff", "Tower A", "Tower B", "Tower C", "Tower D" , "Joseph Lowe", 
 			 "Antonin Artuard", "Marie Jahoda", "Gaskell"};
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AccessBuilding frame = new AccessBuilding();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try { AccessBuilding frame = new AccessBuilding(); frame.setVisible(true);} 
+				catch (Exception e) {e.printStackTrace();}
 			}
 		});
 	}

@@ -18,7 +18,7 @@ public class Register extends JFrame {
 
 	private JPanel contentPane;
 	public static Register frame = new Register();
-	
+	protected driver sqlDriver = new driver();
 	/**
 	 * @param frame: The frame for the register class that makes it accessible to other objects
 	 * String arrays containing information for combobox fields
@@ -86,21 +86,19 @@ public class Register extends JFrame {
 		 * JComboBox components
 		 */
 		
-		JComboBox<String> userDepartment = new JComboBox<>(arrayDepartment);
+		JComboBox<String> userDepartment = new JComboBox<>();
 		userDepartment.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
-		String selectedDepartment = (String) userDepartment.getSelectedItem();
 		userDepartment.setBounds(302, 180, 130, 27);
 		contentPane.add(userDepartment);
 		
-		JComboBox<String> userAccomodation = new JComboBox<>(arrayAccomodation);
+		
+		JComboBox<String> userAccomodation = new JComboBox<>();
 		userAccomodation.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
-		String selectedAccomodation = (String) userAccomodation.getSelectedItem();
 		userAccomodation.setBounds(302, 154, 130, 27);
 		contentPane.add(userAccomodation);
 		
-		JComboBox <String> userType = new JComboBox<>(arrayuserType);
+		JComboBox <String> userType = new JComboBox<>();
 		userType.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
-		String selectedType= (String) userType.getSelectedItem();
 		userType.setBounds(302, 127, 130, 27);
 		contentPane.add(userType);
 		
@@ -133,6 +131,12 @@ public class Register extends JFrame {
 		lblDepartment.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 13));
 		contentPane.add(lblDepartment);
 		
+		JLabel lblDuplicate = new JLabel("*The ID you have entered already has an account.");
+		lblDuplicate.setVisible(false); //Set visibility to false first because this pops up if an error occurs.
+		lblDuplicate.setForeground(Color.RED);
+		lblDuplicate.setBounds(229, 37, 212, 16);
+		lblDuplicate.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 10));
+		contentPane.add(lblDuplicate);
 		/*
 		 * JButton components
 		 */
@@ -147,9 +151,16 @@ public class Register extends JFrame {
 			{
 				//TODO: After the user clicks next check the database for the pre-existing IDs in the system
 				//TODO: After checking there are no pre-existing IDs, store the information in the mySQL database
-				System.out.println(selectedAccomodation);
-				Home.frame.setVisible(true);
-				frame.dispose();
+				String selectedType = (String) userType.getSelectedItem();
+				String selectedAccomodation = (String) userAccomodation.getSelectedItem();
+				String selectedDepartment = (String) userDepartment.getSelectedItem();
+				if(sqlDriver.duplicateID(userID)) //If there is a duplicate
+				{
+					lblDuplicate.setVisible(true);
+				}
+				
+				//Home.frame.setVisible(true);
+				//frame.dispose();
 			}
 		});
 		

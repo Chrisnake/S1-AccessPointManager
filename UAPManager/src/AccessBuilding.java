@@ -77,11 +77,7 @@ public class AccessBuilding extends JFrame {
 		 * JComboBox component
 		 */
 		
-		JComboBox<String> Buildings = new JComboBox<>();
-		for(String hey : arrayBuildings)
-		{
-			Buildings.addItem(hey);
-		}
+		JComboBox<String> Buildings = new JComboBox<>(arrayBuildings);
 		Buildings.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		Buildings.setBounds(90, 127, 239, 18);
 		contentPane.add(Buildings);

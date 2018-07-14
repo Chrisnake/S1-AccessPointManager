@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JTextField;
@@ -14,14 +12,12 @@ import javax.swing.JTextField;
 	
 	protected ResultSet rs;
 	protected static String url = "jdbc:mysql://localhost:3306/UAPManager";
-		
+	
 	public static void main(String args[]) 
 	{
 		try 
 		{
 			ResultSet rs;
-
-			
 			Connection con = DriverManager.getConnection(url,"root","Simpson1723");
 			Statement select = con.createStatement();
 
@@ -35,7 +31,7 @@ import javax.swing.JTextField;
 		} catch (Exception e) {System.out.println(e);}  
 	}
 	
-	public boolean duplicateID(JTextField userID) //checks the database for a duplicate userID from the userID column.
+	public boolean duplicateID(JTextField userID) //Checks the database for a duplicate userID from the userID column.
 	{
 		boolean checkBoolean = false;
 		try 
@@ -47,8 +43,10 @@ import javax.swing.JTextField;
 			rs = select.executeQuery("SELECT userID FROM users");
 			while (rs.next()) 
 			{
-				
-					String check = rs.getString(1);
+				for(int i = 1; i < Register.getarraySize(); i++)
+				{
+					System.out.println(Register.getarraySize() + " is the size of the users array");
+					String check = rs.getString(i);
 					String checkuserID = userID.getText();
 					if(check.equals(checkuserID))
 					{
@@ -56,11 +54,31 @@ import javax.swing.JTextField;
 						System.out.println("There is a duplicate ID!");
 						break;
 					}
+				}
 			}
 			rs.close();
 		} catch (Exception e1) {System.out.println(e1);}
 		 
 		return checkBoolean;
+	}
+	
+	public void addAccount(User user) //Adds the account to the database from the registration page
+	{
+		try 
+		{
+			Connection con = DriverManager.getConnection(url,"root","Simpson1723");
+			String query = "INSERT INTO users (userID, password, userType, accomodation, department)" + " values (?, ?, ?, ?, ?)";
+			
+			//Create the preparted statement for the values to be inputted
+		    PreparedStatement preparedStmt = con.prepareStatement(query);
+		    preparedStmt.setString (1, user.getuserID());
+		    preparedStmt.setString (2, user.getPassword());
+		    preparedStmt.setString (3, user.getUserType());
+		    preparedStmt.setString(4, user.getAccomodation());
+		    preparedStmt.setString (5, user.getDepartment());
+		    preparedStmt.execute();
+		    
+		} catch (Exception e1) {System.out.println(e1);}
 	}
 }
 

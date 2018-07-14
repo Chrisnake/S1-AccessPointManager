@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,6 +20,7 @@ public class Register extends JFrame {
 	private JPanel contentPane;
 	public static Register frame = new Register();
 	protected driver sqlDriver = new driver();
+	protected static ArrayList<User> users = new ArrayList<User>();
 	/**
 	 * @param frame: The frame for the register class that makes it accessible to other objects
 	 * String arrays containing information for combobox fields
@@ -86,18 +88,18 @@ public class Register extends JFrame {
 		 * JComboBox components
 		 */
 		
-		JComboBox<String> userDepartment = new JComboBox<>();
+		JComboBox<String> userDepartment = new JComboBox<>(arrayDepartment);
 		userDepartment.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		userDepartment.setBounds(302, 180, 130, 27);
 		contentPane.add(userDepartment);
 		
 		
-		JComboBox<String> userAccomodation = new JComboBox<>();
+		JComboBox<String> userAccomodation = new JComboBox<>(arrayAccomodation);
 		userAccomodation.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		userAccomodation.setBounds(302, 154, 130, 27);
 		contentPane.add(userAccomodation);
 		
-		JComboBox <String> userType = new JComboBox<>();
+		JComboBox <String> userType = new JComboBox<>(arrayuserType);
 		userType.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 11));
 		userType.setBounds(302, 127, 130, 27);
 		contentPane.add(userType);
@@ -151,16 +153,26 @@ public class Register extends JFrame {
 			{
 				//TODO: After the user clicks next check the database for the pre-existing IDs in the system
 				//TODO: After checking there are no pre-existing IDs, store the information in the mySQL database
+				
+				String selectedID = userID.getSelectedText();
+				String selectedPassword = userPassword.getSelectedText();
 				String selectedType = (String) userType.getSelectedItem();
 				String selectedAccomodation = (String) userAccomodation.getSelectedItem();
 				String selectedDepartment = (String) userDepartment.getSelectedItem();
-				if(sqlDriver.duplicateID(userID)) //If there is a duplicate
+				
+				if(sqlDriver.duplicateID(userID)) //Checks if there is an ID duplicate
 				{
 					lblDuplicate.setVisible(true);
 				}
-				
-				//Home.frame.setVisible(true);
-				//frame.dispose();
+				else if(!(sqlDriver.duplicateID(userID)) && selectedType != null && selectedAccomodation != null && selectedDepartment != null) //If there is no duplicate, and there are no null user inputs.
+				{
+					User newUser = new User(selectedID, selectedPassword, selectedType, selectedAccomodation, selectedDepartment);
+					users.add(newUser); //Add the new user to the users arraylist.
+					sqlDriver.addAccount(newUser); //Uses the driver class to add the fields to the SQL database
+					
+					Home.frame.setVisible(true);
+					frame.dispose();
+				}
 			}
 		});
 		
@@ -177,5 +189,10 @@ public class Register extends JFrame {
 				frame.dispose();
 			}
 		});
+	}
+	
+	public static int getarraySize()
+	{
+		return(users.size());
 	}
 }

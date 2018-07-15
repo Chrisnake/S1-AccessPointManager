@@ -23,7 +23,6 @@ public class StartUp {
 	 * @author christianvillegas - student project 2018, rights reserved.
 	 * @param frame: the frame for the class
 	 * @param sqlDriver: driver class containing SQL back end logic
-	 *
 	 */
 	
 	public static void main(String[] args) 

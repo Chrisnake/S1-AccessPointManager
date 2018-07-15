@@ -87,7 +87,7 @@ import java.sql.Statement;
 		return checkBoolean;
 	}
 	
-	public void removeUser(String usertoRemove) //Removes the profile 
+	public void removeUser(String usertoRemove) //Removes the profile of the user when called 
 	{
 		try 
 		{
@@ -98,7 +98,7 @@ import java.sql.Statement;
 		} catch (Exception e1) {System.out.println(e1);}
 	}
 	
-	public void updateProfile(String userID, String newAccom, String newDepartment)
+	public void updateProfile(String userID, String newAccom, String newDepartment) //Updates the users accomodation or/and department when called 
 	{
 		try 
 		{
@@ -108,6 +108,47 @@ import java.sql.Statement;
 			System.out.println("Profile successfully updated");
 			ps.executeUpdate(); 
 		} catch (Exception e1) {System.out.println(e1);}
+		
+	}
+	
+	public boolean checkAccomodation(String userID, String selectedAccom) //checks the database if the selected accomodation is accessible for the user.
+	{
+		boolean checkBoolean = false;
+		try 
+		{
+			Connection con = DriverManager.getConnection(url,"root","Simpson1723");
+			Statement select = con.createStatement();
+			rs = select.executeQuery("SELECT accomodation FROM users WHERE userID = '" + userID + "'  "); 
+			while (rs.next()) 
+			{
+				 String userAccom = rs.getString(1); //Checks the users accomodation in the database
+				 System.out.println("User accomodation in database is " + userAccom);
+				 if(userAccom.equals(selectedAccom))
+				 {
+					 checkBoolean = true;
+				 }
+			}
+		} catch (Exception e1) {System.out.println(e1);}
+		
+		return(checkBoolean);
+	}
+	
+	public String getDepartment(String userID) //Returns the department that the user is in. 
+	{
+		String userDepartment = null;
+		try 
+		{
+			Connection con = DriverManager.getConnection(url,"root","Simpson1723");
+			Statement select = con.createStatement();
+			rs = select.executeQuery("SELECT department FROM users WHERE userID = '" + userID + "'  "); 
+			while (rs.next()) 
+			{
+				userDepartment = rs.getString(1);
+			}
+			
+		} catch (Exception e1) {System.out.println(e1);}
+		
+		return userDepartment;
 		
 	}
 }

@@ -34,7 +34,7 @@ public class Register extends JFrame {
 	
 	private String[] arrayDepartment = new String[] 
 			{"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
-			 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
+			 "Computer Science", "Digital Design" ,"English", "Economics/Finance", "Education", "Games Design", "Law", 
 	   		 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre", "None"};
 	
 	private String[] arrayAccomodation = new String[] 

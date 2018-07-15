@@ -22,18 +22,16 @@ public class UpdateProfile extends JFrame {
 	/**
 	 * @param frame: The frame for the UpdateProfile class that makes it accessible to other objects
 	 * @param Home: Gain access to the home frame to change frame when user has successfully updated profile
-	 * 
 	 */
 	
 	private String[] arrayDepartment = new String[] 
 			{"Engineering", "Biomedical Sciences", "Business/Accounting", "Communications/Media Studies", 
 			 "Computer Science", "English", "Economics/Finance", "Education", "Games Design", "Law", 
-	   		 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre", "None"};
+	   		 "Mathematics", "Music", "Psyiotheraphy", "Sports/Health Science", "Arts/Theatre"};
 	
 	private String[] arrayAccomodation = new String[] 
 			{"Bishop Complex", "Faraday Hall", "Fleming Hall", "Gailbraith Hall", "Isambard Complex",
 			 "Mill Hall", "Lancaster Complex", "Chepstow Hall", "Clifton Hall","Saltash Hall", "None"};
-	private JTextField txtTypeYourId;
 	
 	public static void main(String[] args) 
 	{

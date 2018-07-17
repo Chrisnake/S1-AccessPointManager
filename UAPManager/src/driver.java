@@ -14,7 +14,7 @@ import java.sql.Statement;
 		try 
 		{
 			ResultSet rs;
-			Connection con = DriverManager.getConnection(url,"root","Simpson1723");
+			Connection con = DriverManager.getConnection(url,"root","--------");
 			Statement select = con.createStatement();
 
 			rs = select.executeQuery("SELECT * FROM users");

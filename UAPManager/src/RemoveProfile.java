@@ -80,6 +80,12 @@ public class RemoveProfile extends JFrame {
 		contentPane.add(removeField);
 		removeField.setColumns(10);
 		
+		JLabel lblerrorID = new JLabel("*You typed the Student ID incorrectly, please try again.");
+		lblerrorID.setVisible(false);
+		lblerrorID.setForeground(Color.RED);
+		lblerrorID.setBounds(129, 224, 210, 16);
+		lblerrorID.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 9));
+		contentPane.add(lblerrorID);
 		/**
 		 * JButton components
 		 */
@@ -93,9 +99,18 @@ public class RemoveProfile extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				String removeProfile = removeField.getText();
-				sqlDriver.removeUser(removeProfile);
-				System.out.println("The account has been successfully removed from the database");
-				frame.dispose();
+				if(sqlDriver.duplicateID(removeProfile) && removeField.equals(StartUp.userID)) //If it is true, then that means that the ID exists in the database, then checks if the ID written is theirs.
+				{
+					sqlDriver.removeUser(removeProfile);
+					System.out.println("The account has been officially removed from the database");
+					Home.frame.setVisible(true);
+					frame.dispose();
+				}
+				else //If the user has not typed in their ID, or incorrectly typed it.
+				{
+					lblerrorID.setVisible(true); Home.labelTimer(lblerrorID);
+				}
+			
 			}
 		});
 		

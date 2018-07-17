@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -142,6 +143,15 @@ public class Register extends JFrame {
 		lblDuplicate.setBounds(229, 37, 212, 16);
 		lblDuplicate.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 10));
 		contentPane.add(lblDuplicate);
+		
+
+		JLabel lblnoPassword = new JLabel("*Please fill in all the fields");
+		lblnoPassword.setVisible(false); //Set visibility to false first because this pops up if an error occurs.
+		lblnoPassword.setForeground(Color.RED);
+		lblnoPassword.setBounds(279, 37, 212, 16);
+		lblnoPassword.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 10));
+		contentPane.add(lblnoPassword);
+		/*
 		/*
 		 * JButton components
 		 */
@@ -160,16 +170,21 @@ public class Register extends JFrame {
 				String selectedType = (String) userType.getSelectedItem();
 				String selectedAccomodation = (String) userAccomodation.getSelectedItem();
 				String selectedDepartment = (String) userDepartment.getSelectedItem();
-				
+
 				if(sqlDriver.duplicateID(selectedID)) //Checks if there is an ID duplicate
 				{
-					lblDuplicate.setVisible(true);
+					lblDuplicate.setVisible(true); Home.labelTimer(lblDuplicate);
 				}
-				if(!(sqlDriver.duplicateID(selectedID)) && selectedType != null && selectedAccomodation != null && selectedDepartment != null) //If there is no duplicate, and there are no null user inputs.
+				else if(selectedPassword.isEmpty() || selectedID.isEmpty() ) //Checks if the user has not inputted a password or user ID
+				{
+					lblnoPassword.setVisible(true); Home.labelTimer(lblnoPassword);
+				}
+				else if(!(sqlDriver.duplicateID(selectedID)) && selectedType != null && selectedAccomodation != null && selectedDepartment != null) //If there is no duplicate, and there are no null user inputs.
 				{
 					User newUser = new User(selectedID, selectedPassword, selectedType, selectedAccomodation, selectedDepartment);
 					users.add(newUser); //Add the new user to the users arraylist.
 					sqlDriver.addAccount(newUser); //Uses the driver class to add the fields to the SQL database
+					StartUp.userID = selectedID;
 					Home.frame.setVisible(true);
 					frame.dispose();
 				}

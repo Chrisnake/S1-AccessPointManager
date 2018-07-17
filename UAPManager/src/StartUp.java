@@ -13,10 +13,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class StartUp {
 
 	public JFrame frame;
+	public static String userID;
 	protected driver sqlDriver = new driver();
 	
 	/**
@@ -52,15 +55,6 @@ public class StartUp {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		/**
-		 * JPanel componenets
-		 */
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 153, 153));
-		panel.setBounds(0, 0, 208, 278);
-		frame.getContentPane().add(panel);
 		
 		/**
 		 * JLabel components
@@ -123,6 +117,7 @@ public class StartUp {
 				if(sqlDriver.checkLogin(username, password)) //If true, then there is a login and password match
 				{
 					Home homepage = new Home();
+					userID = username; //Save the username that is logged in, into a global variable to share around classes.
 					homepage.setVisible(true);
 					frame.dispose();
 				}
@@ -137,6 +132,12 @@ public class StartUp {
 		btnsignUp.setFont(new Font("Apple SD Gothic Neo", Font.PLAIN, 10));
 		btnsignUp.setBounds(364, 186, 66, 29);
 		frame.getContentPane().add(btnsignUp);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(51, 153, 153));
+		panel.setForeground(UIManager.getColor("Button.select"));
+		panel.setBounds(0, 0, 208, 278);
+		frame.getContentPane().add(panel);
 		
 		btnsignUp.addActionListener(new ActionListener() 
 		{

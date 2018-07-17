@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.JButton;
 
 public class Home extends JFrame {
@@ -100,4 +101,18 @@ public class Home extends JFrame {
 			}
 		});
 	}
+	
+	public static void labelTimer(JLabel label) //Shows the label and then hides it after 5 seconds.
+	{
+        Timer timer = new Timer(5000, new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                label.setVisible(false);
+            }
+        });
+        
+        timer.start();
+    }
 }

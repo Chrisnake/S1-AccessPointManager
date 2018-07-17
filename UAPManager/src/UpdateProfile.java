@@ -144,7 +144,7 @@ public class UpdateProfile extends JFrame {
 				String selectedAccomodation = (String) userAccomodation.getSelectedItem();
 				String selectedUserID = userIDText.getText();
 				
-				if(sqlDriver.duplicateID(selectedUserID)) //If it is true, then that means that the ID exists in the database
+				if(sqlDriver.duplicateID(selectedUserID) && selectedUserID.equals(StartUp.userID)) //If it is true, then that means that the ID exists in the database, then checks if the ID written is theirs.
 				{
 					sqlDriver.updateProfile(selectedUserID, selectedAccomodation, selectedDepartment);
 					Home.frame.setVisible(true);
@@ -152,7 +152,7 @@ public class UpdateProfile extends JFrame {
 				}
 				else 
 				{
-					lblerrorID.setVisible(true);
+					lblerrorID.setVisible(true); Home.labelTimer(lblerrorID);
 				}
 			}
 		});
